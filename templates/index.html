@@ -9,7 +9,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">My ToDo</a>
+    <a class="navbar-brand" href="/">My ToDo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -46,14 +46,14 @@
 
 <div class="container">
     <h2>Add a ToDo</h2>
-    <form>
+    <form action="/" method="POST">
   <div class="mb-3">
-    <label for="title" class="form-label">ToDo Titel</label>
-    <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+    <label for="title" class="form-label">ToDo Title</label>
+    <input type="text" class="form-control" name="title" id="title">
   </div>
   <div class="mb-3">
     <label for="desc" class="form-label">ToDo Description</label>
-    <input type="text" class="form-control" id="desc">
+    <input type="text" class="form-control" name="desc" id="desc">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
