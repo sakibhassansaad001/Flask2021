@@ -1,11 +1,35 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///todo.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+class ToDo(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=True)
+    desc = db.Column(db.String(500), nullable=True)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self) -> str:
+        return f"{self.sno} - {self.title}"
 
 @app.route("/")
 def hello_world():
-   return render_template('index.html')
+   todo = ToDo(title="First Todo", desc="Start working on your skill")
+   db.session.add(todo)
+   db.session.commit()
+   allToDo = ToDo.query.all()
+   return render_template('index.html', allToDo=allToDo)
     # return "<p>Hello, World!</p>"
 
+@app.route("/show")
+def show():
+    allToDo = ToDo.query.all()
+    print(allToDo)
+    return 'This is a product page'
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
